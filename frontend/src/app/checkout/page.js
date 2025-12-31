@@ -119,7 +119,7 @@ function CheckoutContent() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/checkout",
+        "https://opulune.onrender.com/api/checkout",
         orderData,
         {
           headers: { "Content-Type": "application/json" },
