@@ -85,7 +85,6 @@ export default function ButtonAppBar() {
   const navItems = [
     { label: "Accueil", href: "/accueil", key: "1" },
     { label: "Produits", href: "/produits", key: "2" },
-    { label: "Avis", href: "/avis", key: "3" },
     { label: "À propos", href: "/about", key: "5" },
     { label: "Contact", href: "/contact", key: "4" },
   ];

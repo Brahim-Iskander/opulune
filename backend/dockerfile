@@ -1,15 +1,20 @@
-# Build stage
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+# Use Maven + JDK image
+FROM maven:3.9.6-eclipse-temurin-17
 
-# Run stage
-FROM eclipse-temurin:17-jdk-alpine
+# Set working directory
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
 
-# Expose 8081
+# Copy pom.xml first to leverage Maven cache
+COPY pom.xml .
+
+# Download dependencies only (faster rebuilds)
+RUN mvn dependency:go-offline -B
+
+# Copy source code
+COPY src ./src
+
+# Expose port your app will run on
 EXPOSE 8081
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run Spring Boot in dev mode
+CMD ["mvn", "spring-boot:run"]
