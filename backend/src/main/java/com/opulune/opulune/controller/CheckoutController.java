@@ -9,7 +9,7 @@ import com.opulune.opulune.DTO.CheckoutDTO;
 
 @RestController
 @RequestMapping("/api/checkout")
-@CrossOrigin(origins = "https://opulune.netlify.app")  // <-- allow your React app
+@CrossOrigin(origins = {"https://opulune.netlify.app", "http://localhost:3000"})  // <-- allow your React app
 public class CheckoutController {
 
     @Autowired
