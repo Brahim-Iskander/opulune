@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Spectral:wght@200;300;400;500&display=swap');
+
+.container {
+  --cream: #F7F3ED;
+  --deep-navy: #16171D;
+  --gold: #C9A961;
+  --soft-gold: #E8D4A0;
+  --charcoal: #2C2C2C;
+  --warm-white: #FFFEF9;
+  background: var(--cream);
+  min-height: 100vh;
+  font-family: 'Spectral', serif;
+  color: var(--charcoal);
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(247, 243, 237, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--deep-navy);
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.navLinks {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.navLinks a {
+  color: var(--charcoal);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+
+.navLinks a:hover {
+  color: var(--gold);
+}
+
+.navLinks a:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  padding: 12rem 5% 6rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.03;
+  background-image: 
+    radial-gradient(circle at 30% 40%, var(--gold) 1px, transparent 1px),
+    radial-gradient(circle at 70% 60%, var(--gold) 1px, transparent 1px);
+  background-size: 150px 150px, 200px 200px;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+}
+
+.heroSubtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.heroTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--deep-navy);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.heroDescription {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--charcoal);
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* Contact Section */
+.contactSection {
+  padding: 6rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+/* Contact Info */
+.contactInfo {
+  position: sticky;
+  top: 120px;
+}
+
+.infoTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--deep-navy);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.infoItem {
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.infoItem::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+.infoLabel {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.infoValue {
+  font-size: 1.1rem;
+  color: var(--charcoal);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.infoValue a {
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.infoValue a:hover {
+  color: var(--gold);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.socialLink {
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--gold);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background: var(--gold);
+  color: var(--deep-navy);
+  transform: translateY(-3px);
+}
+
+/* Contact Form */
+.contactForm {
+  background: var(--warm-white);
+  padding: 4rem;
+  border: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.formTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--deep-navy);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: 0.8rem;
+  font-weight: 400;
+}
+
+.formInput,
+.formTextarea,
+.formSelect {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(44, 44, 44, 0.2);
+  background: var(--cream);
+  font-family: 'Spectral', serif;
+  font-size: 1rem;
+  color: var(--charcoal);
+  transition: all 0.3s ease;
+}
+
+.formInput:focus,
+.formTextarea:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--warm-white);
+}
+
+.formTextarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1.3rem;
+  background: var(--deep-navy);
+  color: var(--warm-white);
+  border: 1px solid var(--deep-navy);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Spectral', serif;
+  font-weight: 400;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.submitButton:hover {
+  color: var(--deep-navy);
+  border-color: var(--gold);
+}
+
+.submitButton:hover::before {
+  left: 0;
+}
+
+/* Hours Section */
+.hoursSection {
+  padding: 6rem 5%;
+  background: var(--deep-navy);
+  color: var(--warm-white);
+  text-align: center;
+}
+
+.hoursTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+.hoursGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hoursItem {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+}
+
+.hoursDay {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  font-weight: 400;
+}
+
+.hoursTime {
+  font-size: 1.1rem;
+  color: var(--warm-white);
+  font-weight: 300;
+}
+
+/* Footer */
+.footer {
+  background: var(--deep-navy);
+  color: var(--warm-white);
+  padding: 4rem 5%;
+  text-align: center;
+  border-top: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.footerLogo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+}
+
+.footerTagline {
+  font-size: 0.9rem;
+  color: var(--soft-gold);
+  font-style: italic;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .contactInfo {
+    position: static;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+
+  .contactForm {
+    padding: 2.5rem;
+  }
+}
