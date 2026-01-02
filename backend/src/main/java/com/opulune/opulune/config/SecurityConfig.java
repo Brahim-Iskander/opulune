@@ -20,28 +20,41 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/checkout").permitAll()
+                // ✅ Allow preflight OPTIONS requests
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // ✅ Public endpoints
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/contact/**").permitAll()
                 .requestMatchers("/api/checkout/**").permitAll()
-                 .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
-            .requestMatchers("/api/contact/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
-            .requestMatchers("/api/auth/**").permitAll()
+
+                // 🔒 Everything else requires auth
                 .anyRequest().authenticated()
             );
+
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://opulune.netlify.app","http://localhost:3000"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        configuration.setAllowedOrigins(List.of(
+            "https://opulune.netlify.app",
+            "http://localhost:3000"
+        ));
+        configuration.setAllowedMethods(List.of(
+            "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+        configuration.setAllowedHeaders(List.of(
+            "Content-Type",
+            "Authorization"
+        ));
+        configuration.setAllowCredentials(false); // change to true only if using cookies
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
-

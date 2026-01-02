@@ -120,7 +120,12 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.post(
-      "https://opulune-1.onrender.com/api/checkout",orderData);
+      "https://opulune-1.onrender.com/api/checkout",
+      orderData,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     // ✅ Calculate subtotal and tax
     const subtotal = total / 1.1; // Total without 10% tax

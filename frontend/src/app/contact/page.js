@@ -18,7 +18,14 @@ export default function ContactPage() {
 
     try {
       const response = await axios.post(
-        "https://opulune-1.onrender.com/api/contact",formData);
+        "https://opulune-1.onrender.com/api/contact",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("Success:", response.data);
       alert("Email sent successfully!");
