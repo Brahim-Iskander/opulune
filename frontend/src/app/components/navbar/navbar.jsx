@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import SlidingTitle from "./slidertitle.jsx";
-import InputBase from '@mui/material/InputBase';
+import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
@@ -14,60 +14,60 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import Badge, { badgeClasses } from '@mui/material/Badge';
-import { styled, alpha } from '@mui/material/styles';
+import Badge, { badgeClasses } from "@mui/material/Badge";
+import { styled, alpha } from "@mui/material/styles";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 export default function ButtonAppBar() {
   const [activeNav, setActiveNav] = useState("");
-  const [panier,setPanier]=useState(0);
+  const [panier, setPanier] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
+
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     marginRight: theme.spacing(2),
     backgroundColor: alpha(theme.palette.common.black, 0.15),
-    '&:hover': {
+    "&:hover": {
       backgroundColor: alpha(theme.palette.common.black, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
+      width: "auto",
     },
   }));
 
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
+    color: "inherit",
+    width: "100%",
+    "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
+      transition: theme.transitions.create("width"),
+      [theme.breakpoints.up("sm")]: {
+        width: "12ch",
+        "&:focus": {
+          width: "20ch",
         },
       },
     },
@@ -98,14 +98,20 @@ export default function ButtonAppBar() {
 
   const DrawerList = (
     <Box
-      sx={{ width: 250, backgroundColor: '#ede9de', height: '100%', paddingTop: '20px',color:'#b58c4e' }}
+      sx={{
+        width: 250,
+        backgroundColor: "#ede9de",
+        height: "100%",
+        paddingTop: "20px",
+        color: "#b58c4e",
+      }}
       role="presentation"
       onClick={() => setDrawerOpen(false)}
       onKeyDown={() => setDrawerOpen(false)}
     >
       <List>
         {navItems.map((item) => (
-          <ListItem key={item.key} disablePadding >
+          <ListItem key={item.key} disablePadding>
             <ListItemButton
               component={Link}
               href={item.href}
@@ -114,14 +120,15 @@ export default function ButtonAppBar() {
               <ListItemText
                 primary={item.label}
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  fontFamily: 'var(--font-playfair)',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  fontFamily: "var(--font-playfair)",
                   fontWeight: activeNav === item.key ? 700 : 500,
-                  fontSize: '1.1rem',
-                  borderBottom: activeNav === item.key ? '2px solid #b58c4e' : 'none',
+                  fontSize: "1.1rem",
+                  borderBottom:
+                    activeNav === item.key ? "2px solid #b58c4e" : "none",
                 }}
               />
             </ListItemButton>
@@ -133,11 +140,11 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="primary" >
+      <AppBar position="static" color="primary">
         {/* Top Toolbar */}
         <Toolbar
           sx={{
-            display: 'flex',
+            display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             backgroundColor: "#b58c4e",
@@ -145,10 +152,10 @@ export default function ButtonAppBar() {
         >
           {/* Menu Icon for Mobile - Left Side */}
           <IconButton
-            sx={{ 
-              display: { xs: "flex", md: "none" }, 
+            sx={{
+              display: { xs: "flex", md: "none" },
               color: "white",
-              ml: 1
+              ml: 1,
             }}
             onClick={() => setDrawerOpen(true)}
             edge="start"
@@ -223,24 +230,28 @@ export default function ButtonAppBar() {
             backgroundColor: "#fdf6ee",
             width: "100%",
             padding: { xs: "10px 20px", md: "0px " },
-            borderBottom:"solid 1px #f4eded9b"
+            borderBottom: "solid 1px #f4eded9b",
           }}
         >
           {/* Logo à gauche - Desktop only */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
+          <Box
+            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+          >
             <img
               src="/favicon.ico"
               alt="Opulune Logo"
-              style={{ height: "350px"}}
+              style={{ height: "350px" }}
             />
           </Box>
 
           {/* Navigation centrée - Desktop only */}
-          <Box sx={{
-            display: { xs: "none", md: "flex" },
-            justifyContent: "center",
-            flexGrow: 1
-          }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
+              flexGrow: 1,
+            }}
+          >
             {navItems.map((item) => (
               <Button
                 key={item.key}
@@ -270,19 +281,29 @@ export default function ButtonAppBar() {
           </Box>
 
           {/* Icons - Visible on all screens */}
-          <Box sx={{ display: "flex", alignItems: "center", width: { xs: "100%", md: "auto" }, justifyContent: { xs: "space-between", md: "flex-end" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              width: { xs: "100%", md: "auto" },
+              justifyContent: { xs: "space-between", md: "flex-end" },
+            }}
+          >
             <Search>
               <SearchIconWrapper>
-                <SearchIcon sx={{color:"black"}}/>
+                <SearchIcon sx={{ color: "black" }} />
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
+                inputProps={{ "aria-label": "search" }}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </Search>
 
-            <IconButton sx={{ color: "black", mr: { xs: 1, md: 2 } }}>
+            <IconButton
+              sx={{ color: "black", mr: { xs: 1, md: 2 } }}
+              onClick={() => router.push("/auth/users")}
+            >
               <PermIdentityIcon />
             </IconButton>
 

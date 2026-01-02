@@ -1,41 +1,58 @@
 "use client";
-import { useState } from 'react';
-import styles from './ContactPage.module.css';
+import { useState } from "react";
+import styles from "./ContactPage.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import axios from "axios";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    nom: '',
-    email: '',
-    telephone: '',
-    sujet: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/api/contact",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Success:", response.data);
+      alert("Email sent successfully!");
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send email");
+    }
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
     <div className={styles.container}>
-     
-
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroSubtitle}>Nous Contacter</div>
           <h1 className={styles.heroTitle}>Parlons Ensemble</h1>
           <p className={styles.heroDescription}>
-            Nous serions ravis d'échanger avec vous. Que ce soit pour une question, une commande personnalisée ou simplement partager votre passion pour nos créations.
+            Nous serions ravis d'échanger avec vous. Que ce soit pour une
+            question, une commande personnalisée ou simplement partager votre
+            passion pour nos créations.
           </p>
         </div>
       </section>
@@ -46,11 +63,12 @@ export default function ContactPage() {
           {/* Contact Info */}
           <div className={styles.contactInfo}>
             <h2 className={styles.infoTitle}>Rejoignez-Nous</h2>
-            
+
             <div className={styles.infoItem}>
               <div className={styles.infoLabel}>Adresse</div>
               <div className={styles.infoValue}>
-                123 Rue de la Lumière<br />
+                123 Rue de la Lumière
+                <br />
                 75008 Paris, France
               </div>
             </div>
@@ -72,11 +90,43 @@ export default function ContactPage() {
             <div className={styles.infoItem}>
               <div className={styles.infoLabel}>Suivez-Nous</div>
               <div className={styles.socialLinks}>
-                 <a href="https://www.facebook.com/profile.php?id=61583061987333" className="social-link" target="_blank" rel="noopener noreferrer">
-                    <FacebookIcon />
-                    </a>
-                    <a href="https://www.instagram.com/opu_lune?igsh=MXF4MjYwY2dqNWRzYQ==" className="social-link" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61583061987333"
+                  className="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FacebookIcon />
+                </a>
+                <a
+                  href="https://www.instagram.com/opu_lune?igsh=MXF4MjYwY2dqNWRzYQ=="
+                  className="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-instagram"
+                  >
+                    <rect
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="5"
+                      ry="5"
+                    ></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
                 </a>
               </div>
             </div>
@@ -85,15 +135,15 @@ export default function ContactPage() {
           {/* Contact Form */}
           <form className={styles.contactForm} onSubmit={handleSubmit}>
             <h3 className={styles.formTitle}>Envoyez-nous un Message</h3>
-            
+
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Nom Complet</label>
                 <input
                   type="text"
-                  name="nom"
+                  name="name"
                   className={styles.formInput}
-                  value={formData.nom}
+                  value={formData.name}
                   onChange={handleChange}
                   required
                 />
@@ -117,9 +167,9 @@ export default function ContactPage() {
                 <label className={styles.formLabel}>Téléphone</label>
                 <input
                   type="tel"
-                  name="telephone"
+                  name="phone"
                   className={styles.formInput}
-                  value={formData.telephone}
+                  value={formData.phone}
                   onChange={handleChange}
                 />
               </div>
@@ -127,9 +177,9 @@ export default function ContactPage() {
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Sujet</label>
                 <select
-                  name="sujet"
+                  name="subject"
                   className={styles.formSelect}
-                  value={formData.sujet}
+                  value={formData.subject}
                   onChange={handleChange}
                   required
                 >

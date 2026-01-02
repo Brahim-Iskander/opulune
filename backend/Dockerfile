@@ -1,5 +1,14 @@
-FROM maven:3.9.6-eclipse-temurin-17
+# Use lightweight Java image
+FROM eclipse-temurin:17-jre
+
+# Set working directory
 WORKDIR /app
-COPY . .
-EXPOSE 8081
-CMD ["mvn", "spring-boot:run"]
+
+# Copy jar file
+COPY target/*.jar app.jar
+
+# Expose port (Render uses 8080)
+EXPOSE 8080
+
+# Run app
+ENTRYPOINT ["java", "-jar", "app.jar"]

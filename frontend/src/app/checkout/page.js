@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 import {
@@ -38,6 +39,7 @@ const theme = createTheme({
 });
 
 function CheckoutContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -84,57 +86,89 @@ function CheckoutContent() {
   const calculateTotal = () => {
     return total + calculateTax();
   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // ✅ Validate required fields before sending
+  if (!formData.email || !formData.firstName || !formData.lastName) {
+    alert(
+      "Please fill in all required fields: first name, last name, and email."
+    );
+    return;
+  }
 
-    // ✅ Validate required fields before sending
-    if (!formData.email || !formData.firstName || !formData.lastName) {
-      alert(
-        "Please fill in all required fields: first name, last name, and email."
-      );
-      return;
-    }
+  const orderData = {
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phone: formData.phone || "",
+    address: formData.address || "",
+    city: formData.city || "",
+    zipCode: formData.zipCode || "",
+    country: formData.country || "",
+    total: total || 0,
+    products: products.map((p) => ({
+      id: p.id || "",
+      name: p.name || "",
+      price: p.price || 0,
+      quantity: p.quantity || 1,
+      url: p.url || "",
+    })),
+  };
 
-    const orderData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+  console.log("Submitting order:", orderData); // Debug
+
+  try {
+    const response = await axios.post(
+      "http://localhost:8081/api/checkout",
+      orderData,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    // ✅ Calculate subtotal and tax
+    const subtotal = total / 1.1; // Total without 10% tax
+    const tax = total - subtotal;
+
+    // ✅ Create confirmation data with correct structure
+    const confirmationData = {
+      orderNumber: response.data.orderId || `ORD-${Date.now()}`,
+      orderDate: new Date().toLocaleDateString('fr-FR', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      }),
       email: formData.email,
-      phone: formData.phone || "",
-      address: formData.address || "",
-      city: formData.city || "",
-      zipCode: formData.zipCode || "",
-      country: formData.country || "",
-      total: total || 0,
-      products: products.map((p) => ({
+      items: products.map((p) => ({  
         id: p.id || "",
         name: p.name || "",
         price: p.price || 0,
         quantity: p.quantity || 1,
         url: p.url || "",
       })),
+      subtotal: subtotal,
+      tax: tax,
+      total: total,
+      shippingAddress: {  // ✅ Added shippingAddress object
+        name: `${formData.firstName} ${formData.lastName}`,
+        street: formData.address || "N/A",
+        city: formData.city ? `${formData.city} ${formData.zipCode}` : "N/A",
+        country: formData.country || "N/A"
+      }
     };
 
-    console.log("Submitting order:", orderData); // Debug
-
-    try {
-      const response = await axios.post(
-        "https://opulune.onrender.com/api/checkout",
-        orderData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      localStorage.removeItem("cart");
-    } catch (error) {
-      console.error(
-        "Error placing order:",
-        error.response ? error.response.data : error.message
-      );
-      alert("Failed to place order. See console for details.");
-    }
-  };
+    localStorage.setItem("orderConfirmation", JSON.stringify(confirmationData));
+    localStorage.removeItem("cart");
+    router.push("/order-confirmation");
+  } catch (error) {
+    console.error(
+      "Error placing order:",
+      error.response ? error.response.data : error.message
+    );
+    alert("Failed to place order. See console for details.");
+  }
+};
 
   return (
     <ThemeProvider theme={theme}>
