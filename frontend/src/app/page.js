@@ -2,7 +2,7 @@
 import Home from "./accueil/page.js"
 
 export const metadata = {
-  title: 'Accueil - Nom de votre boutique',
+  title: 'Accueil - Opulune',
   description: 'Découvrez notre boutique en ligne avec une large sélection de produits de qualité. Livraison rapide et service client exceptionnel.',
   keywords: ['boutique en ligne', 'achats', 'produits', 'e-commerce'],
   openGraph: {
