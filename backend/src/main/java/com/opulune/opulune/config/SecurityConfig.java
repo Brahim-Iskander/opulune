@@ -20,15 +20,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                // ✅ Allow preflight OPTIONS requests
+                // Allow preflight OPTIONS requests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // ✅ Public endpoints
+                // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/contact/**").permitAll()
-                .requestMatchers("/api/checkout/**").permitAll()
+                .requestMatchers("/api/contact").permitAll()
+                .requestMatchers("/api/checkout").permitAll()
 
-                // 🔒 Everything else requires auth
+                // Everything else requires authentication
                 .anyRequest().authenticated()
             );
 
@@ -50,10 +50,9 @@ public class SecurityConfig {
             "Content-Type",
             "Authorization"
         ));
-        configuration.setAllowCredentials(false); // change to true only if using cookies
+        configuration.setAllowCredentials(false); // set true only if using cookies
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

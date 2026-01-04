@@ -18,7 +18,7 @@ export default function ContactPage() {
 
     try {
       const response = await axios.post(
-        "https://opulune-1.onrender.com/api/contact",
+        "http://localhost:8081/api/contact",
         formData,
         {
           headers: {
@@ -29,6 +29,13 @@ export default function ContactPage() {
 
       console.log("Success:", response.data);
       alert("Email sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
     } catch (error) {
       console.error("Error sending email:", error);
       alert("Failed to send email");
