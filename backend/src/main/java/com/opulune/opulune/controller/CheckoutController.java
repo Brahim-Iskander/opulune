@@ -31,7 +31,7 @@ private void sendEmail(CheckoutDTO request) {
     // --- Email to Buyer ---
     SimpleMailMessage buyerMessage = new SimpleMailMessage();
     buyerMessage.setTo(request.getEmail());
-    buyerMessage.setFrom("brahimiskander@fsm.u-monastir.tn");
+    buyerMessage.setFrom("jpfdjxymjg72@melbourne.edu.pl");
     buyerMessage.setSubject("Order Confirmation");
     StringBuilder buyerText = new StringBuilder("Hi " + request.getFirstName() + ",\n\nYour order details:\n");
 
@@ -50,7 +50,7 @@ private void sendEmail(CheckoutDTO request) {
     // --- Email to Seller ---
     SimpleMailMessage sellerMessage = new SimpleMailMessage();
     sellerMessage.setTo("iskander.skan05@gmail.com"); // replace with your email
-    sellerMessage.setFrom("brahimiskander@fsm.u-monastir.tn");
+    sellerMessage.setFrom("jpfdjxymjg72@melbourne.edu.pl");
     sellerMessage.setSubject("New Order Placed by " + request.getFirstName() + " " + request.getLastName());
     StringBuilder sellerText = new StringBuilder("New order received:\n\nCustomer Info:\n");
     sellerText.append("Name: ").append(request.getFirstName()).append(" ").append(request.getLastName()).append("\n")
@@ -82,7 +82,7 @@ private void sendEmail(CheckoutDTO request) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo("iskander.skan05@gmail.com"); // your email
-            message.setFrom("brahimiskander@fsm.u-monastir.tn");
+            message.setFrom("jpfdjxymjg72@melbourne.edu.pl");
             message.setSubject("📩 New Contact Message");
             message.setText(
                     "Name: " + request.getName() + "\n" +
