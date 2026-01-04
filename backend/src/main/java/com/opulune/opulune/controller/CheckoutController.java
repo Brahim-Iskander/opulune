@@ -97,7 +97,7 @@ private void sendEmail(CheckoutDTO request) {
             e.printStackTrace();
             return ResponseEntity
                     .status(500)
-                    .body("Failed to send email ❌");
+                    .body("Failed to send email ❌" + e.getMessage());
         }
     }
 
