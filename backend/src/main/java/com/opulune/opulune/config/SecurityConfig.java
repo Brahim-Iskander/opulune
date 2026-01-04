@@ -25,8 +25,8 @@ public class SecurityConfig {
 
                 // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/contact").permitAll()
-                .requestMatchers("/api/checkout").permitAll()
+                .requestMatchers("/api/contact/**").permitAll()
+                .requestMatchers("/api/checkout/**").permitAll()
 
                 // Everything else requires authentication
                 .anyRequest().authenticated()

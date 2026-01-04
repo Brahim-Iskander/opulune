@@ -18,14 +18,7 @@ export default function ContactPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/contact",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        "http://localhost:8081/api/contact",formData);
 
       console.log("Success:", response.data);
       alert("Email sent successfully!");

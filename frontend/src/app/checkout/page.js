@@ -119,13 +119,7 @@ const handleSubmit = async (e) => {
   console.log("Submitting order:", orderData); // Debug
 
   try {
-    const response = await axios.post(
-      "http://localhost:8081/api/checkout",
-      orderData,
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await axios.post("http://localhost:8081/api/checkout",orderData);
 
     // ✅ Calculate subtotal and tax
     const subtotal = total / 1.1; // Total without 10% tax
