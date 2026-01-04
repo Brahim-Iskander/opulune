@@ -31,6 +31,7 @@ private void sendEmail(CheckoutDTO request) {
     // --- Email to Buyer ---
     SimpleMailMessage buyerMessage = new SimpleMailMessage();
     buyerMessage.setTo(request.getEmail());
+    buyerMessage.setFrom("contact@iskanderbrahim.tech");
     buyerMessage.setSubject("Order Confirmation");
     StringBuilder buyerText = new StringBuilder("Hi " + request.getFirstName() + ",\n\nYour order details:\n");
 
@@ -49,6 +50,7 @@ private void sendEmail(CheckoutDTO request) {
     // --- Email to Seller ---
     SimpleMailMessage sellerMessage = new SimpleMailMessage();
     sellerMessage.setTo("iskanderbrahim2024@gmail.com"); // replace with your email
+    sellerMessage.setFrom("contact@iskanderbrahim.tech");
     sellerMessage.setSubject("New Order Placed by " + request.getFirstName() + " " + request.getLastName());
     StringBuilder sellerText = new StringBuilder("New order received:\n\nCustomer Info:\n");
     sellerText.append("Name: ").append(request.getFirstName()).append(" ").append(request.getLastName()).append("\n")
@@ -80,6 +82,7 @@ private void sendEmail(CheckoutDTO request) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo("iskanderbrahim2024@gmail.com"); // your email
+            message.setFrom("contact@iskanderbrahim.tech");
             message.setSubject("📩 New Contact Message");
             message.setText(
                     "Name: " + request.getName() + "\n" +
