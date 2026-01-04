@@ -17,8 +17,7 @@ export default function ContactPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/api/contact",formData);
+      const response = await axios.post("https://opulune-4.onrender.com/api/contact",formData);
 
       console.log("Success:", response.data);
       alert("Email sent successfully!");
