@@ -2,6 +2,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import LoadingPage from "./loading";
 import axios from "axios";
 
 import {
@@ -40,6 +41,7 @@ const theme = createTheme({
 
 function CheckoutContent() {
   const router = useRouter();
+    const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -96,6 +98,8 @@ const handleSubmit = async (e) => {
     );
     return;
   }
+    setLoading(true);
+
 
   const orderData = {
     firstName: formData.firstName,
@@ -124,7 +128,7 @@ const handleSubmit = async (e) => {
     // ✅ Calculate subtotal and tax
     const subtotal = total / 1.1; // Total without 10% tax
     const tax = total - subtotal;
-
+    console.log("Order response:", response.data.orderId); // Debug
     // ✅ Create confirmation data with correct structure
     const confirmationData = {
       orderNumber: response.data.orderId || `ORD-${Date.now()}`,
@@ -151,7 +155,8 @@ const handleSubmit = async (e) => {
         country: formData.country || "N/A"
       }
     };
-
+    const savedConfirmation = await axios.post("https://opulune-4.onrender.com/api/order/save-confirmation", confirmationData);
+    console.log("Saved confirmation:", savedConfirmation.data); // Debug
     localStorage.setItem("orderConfirmation", JSON.stringify(confirmationData));
     localStorage.removeItem("cart");
     router.push("/order-confirmation");
@@ -160,7 +165,9 @@ const handleSubmit = async (e) => {
       "Error placing order:",
       error.response ? error.response.data : error.message
     );
-    alert("Failed to place order. See console for details.");
+  }
+  finally {
+    setLoading(false);
   }
 };
 
@@ -607,7 +614,7 @@ const handleSubmit = async (e) => {
                     transition: "all 0.3s",
                   }}
                 >
-                  Place Order {calculateTotal().toFixed(2)} TND
+                  {loading ? "Placing Order..." : `Place Order ${calculateTotal().toFixed(2)} TND`}
                 </Button>
 
                 <Typography
@@ -624,6 +631,24 @@ const handleSubmit = async (e) => {
           </Grid>
         </Container>
       </Box>
+      {loading && (
+  <Box
+    sx={{
+      position: "fixed",
+      inset: 0,
+      backgroundColor: "rgba(255,255,255,0.7)",
+      zIndex: 9999,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    {<LoadingPage />}
+    <Box className="spinner" />
+  </Box>
+)}
+
     </ThemeProvider>
   );
 }

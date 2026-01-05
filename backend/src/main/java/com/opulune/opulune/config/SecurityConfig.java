@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/contact/**").permitAll()
                 .requestMatchers("/api/checkout/**").permitAll()
+.requestMatchers("/api/order/**").permitAll()
 
                 // Everything else requires authentication
                 .anyRequest().authenticated()

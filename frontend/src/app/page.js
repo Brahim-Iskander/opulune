@@ -1,5 +1,7 @@
 
 import Home from "./accueil/page.js"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export const metadata = {
   title: 'Accueil - Opulune',

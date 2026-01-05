@@ -2,9 +2,12 @@
 import { useState } from "react";
 import styles from "./ContactPage.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import LoadingPage from "./loading";
+import { Box } from "@mui/material";
 import axios from "axios";
 
 export default function ContactPage() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,12 +18,11 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post("https://opulune-4.onrender.com/api/contact",formData);
 
-      console.log("Success:", response.data);
-      alert("Email sent successfully!");
       setFormData({
         name: "",
         email: "",
@@ -30,7 +32,9 @@ export default function ContactPage() {
       });
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send email");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -75,14 +79,14 @@ export default function ContactPage() {
             <div className={styles.infoItem}>
               <div className={styles.infoLabel}>Téléphone</div>
               <div className={styles.infoValue}>
-                <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+                <a href="tel:+33123456789">+216 21 21 45 12</a>
               </div>
             </div>
 
             <div className={styles.infoItem}>
               <div className={styles.infoLabel}>Email</div>
               <div className={styles.infoValue}>
-                <a href="mailto:contact@opulune.fr">contact@opulune.fr</a>
+                <a href="mailto:contact@opulune.fr">Opulune.officiel@gmail.com</a>
               </div>
             </div>
 
@@ -228,6 +232,24 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      {loading && (
+        <Box
+          sx={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(255,255,255,0.7)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {<LoadingPage />}
+          <Box className="spinner" />
+        </Box>
+      )}
+      
     </div>
   );
 }
