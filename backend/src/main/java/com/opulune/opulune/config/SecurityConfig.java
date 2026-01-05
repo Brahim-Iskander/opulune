@@ -27,7 +27,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/contact/**").permitAll()
                 .requestMatchers("/api/checkout/**").permitAll()
-.requestMatchers("/api/order/**").permitAll()
+                .requestMatchers("/api/order/**").permitAll()
+                .requestMatchers("/api/products/**").permitAll()
 
                 // Everything else requires authentication
                 .anyRequest().authenticated()
@@ -49,7 +50,8 @@ public class SecurityConfig {
         ));
         configuration.setAllowedHeaders(List.of(
             "Content-Type",
-            "Authorization"
+            "Authorization",
+            "user-role"
         ));
         configuration.setAllowCredentials(false); // set true only if using cookies
 

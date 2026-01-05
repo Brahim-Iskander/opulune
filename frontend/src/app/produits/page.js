@@ -1,10 +1,12 @@
+"use client";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Card from "../components/produits/card.jsx";
-import Cdd from "../components/produits/card2.jsx";
 import Feature from "../components/navbar/features.jsx";
 import Slider from "../components/produits/productslider.jsx";
+import {  useEffect, useState } from "react";
+/*
 export const metadata = {
   title: 'Nos Produits - Nom de votre boutique',
   description: 'Explorez notre catalogue complet de produits. Trouvez ce dont vous avez besoin avec des prix compétitifs et une qualité garantie.',
@@ -25,8 +27,22 @@ export const metadata = {
   alternates: {
     canonical: 'https://opulune.netlify.app/produits',
   },
-}
+}*/
 export default function BasicGrid() {
+  const [Products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:8081/api/products/getallproducts");
+        const data = await res.json();
+        setProducts(data);
+      }
+      catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProducts();
+  }, []);
   
   return (
     <Box
@@ -39,7 +55,8 @@ export default function BasicGrid() {
     >
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ marginBottom: "50px" }}>
-          <Slider />
+          <Slider products={Products.slice(0, 3)} />
+
         </Grid>
 
         <Grid
@@ -91,10 +108,10 @@ export default function BasicGrid() {
             flexWrap: "wrap",
           }}
         >
-          <Card />
-          <Cdd />
+          {Products.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
 
-          
         </Grid>
         <Feature />
       </Grid>

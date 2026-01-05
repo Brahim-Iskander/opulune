@@ -1,26 +1,7 @@
 "use client";
-const items = [
-  {
-    src: "https://images.pexels.com/photos/1721096/pexels-photo-1721096.jpeg",
-    alt: "Slide 1",
-    captionTitle: "First slide",
-    captionText: "Some representative content."
-  },
-  {
-    src: "https://images.pexels.com/photos/1721096/pexels-photo-1721096.jpeg",
-    alt: "Slide 2",
-    captionTitle: "Second slide",
-    captionText: "More content here."
-  },
-  {
-    src: "https://images.pexels.com/photos/1721096/pexels-photo-1721096.jpeg",
-    alt: "Slide 3",
-    captionTitle: "Third slide",
-    captionText: "Final slide content."
-  }
-];
 
-export default function ProductSlider() {
+
+export default function ProductSlider({products}) {
   return (
     <div
       id="carouselExampleDark"
@@ -52,7 +33,7 @@ export default function ProductSlider() {
       </div>
 
       <div className="carousel-inner">
-       {items.map((item, index) => 
+       {products.map((item, index) => 
           <div
             key={index}
             className={`carousel-item ${index === 0 ? "active" : ""}`}
@@ -60,13 +41,13 @@ export default function ProductSlider() {
             style={{ height: "60vh" }}
           >
             <img
-              src={item.src}
+              src={item.imageUrl}
               className="d-block w-100"
-              alt={item.alt}
+              alt={item.name}
             />
             <div className="carousel-caption d-none d-md-block">
-              <h5>{item.captionTitle}</h5>
-              <p>{item.captionText}</p>
+              <h5>{item.name}</h5>
+              <p>{item.description}</p>
             </div>
           </div>
         )}

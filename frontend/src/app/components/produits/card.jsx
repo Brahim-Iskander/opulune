@@ -9,16 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-export default function ProduitCard() {
+export default function ProduitCard({product}) {
   const [quantity, setQuantity] = React.useState(1);
 
-  // Define your product object
-  const product = {
-    name: "Bougie Peearfumése",
-    price: 45,
-    quantity: quantity,
-    url: "https://images.pexels.com/photos/1721096/pexels-photo-1721096.jpeg"
-  };
+  
 
   // Function to add product to localStorage
   const addToLocal = (product) => {
@@ -59,7 +53,7 @@ export default function ProduitCard() {
           component="img"
           sx={{ display: 'block', width: '95%', margin: 'auto', marginTop: '10px' }}
           height="350"
-          image={product.url}
+          image={product.imageUrl}
           alt={product.name}
         />
         <CardContent>

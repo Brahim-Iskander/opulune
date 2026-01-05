@@ -67,51 +67,28 @@ public class UserController {
 
     // Login endpoint
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody User loginRequest) {
-        Map<String, Object> response = new HashMap<>();
-        
-        try {
-            // Validate input
-            if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Email is required");
-                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-            }
-            
-            if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Password is required");
-                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-            }
-            
-            // Find user by email
-            Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
-            
-            if (userOptional.isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Invalid email or password");
-                return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-            }
-            
-            User user = userOptional.get();
-            
-            // Check password
-            if (!user.getPassword().equals(loginRequest.getPassword())) {
-                response.put("success", false);
-                response.put("message", "Invalid email or password");
-                return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-            }
-            
-            // Login successful
-            response.put("success", true);
-            response.put("message", "Login successful");
-            response.put("user", user);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-            
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", "Login failed: " + e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+public ResponseEntity<Map<String, Object>> login(@RequestBody User loginRequest) {
+    Map<String, Object> response = new HashMap<>();
+
+    Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
+    if (userOptional.isEmpty() || !userOptional.get().getPassword().equals(loginRequest.getPassword())) {
+        response.put("success", false);
+        response.put("message", "Invalid email or password");
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
+
+    User user = userOptional.get();
+    response.put("success", true);
+    response.put("message", "Login successful");
+    response.put("user", user);
+
+    // Add redirect based on role
+    if ("admin".equals(user.getRole())) {
+        response.put("redirect", "/admin/dashboard");
+    } else {
+        response.put("redirect", "/"); // normal user home page
+    }
+
+    return new ResponseEntity<>(response, HttpStatus.OK);
+}
 }

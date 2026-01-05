@@ -1,5 +1,7 @@
 "use client";
 import { useState } from 'react';
+import { Box } from '@mui/material';
+import LoadingPage from './loading';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 const styles = {
@@ -171,6 +173,7 @@ const styles = {
 export default function AuthPages() {
     const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -188,6 +191,7 @@ export default function AuthPages() {
   };
 const handleSubmit = async () => {
   try {
+    setIsLoading(true);
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     
     const response = await axios.post(`https://opulune-4.onrender.com${endpoint}`, formData);
@@ -199,7 +203,7 @@ const handleSubmit = async () => {
       if (isLogin) {
          localStorage.setItem('user', JSON.stringify(response.data.user));
         router.refresh();
-        router.push('/'); // Redirect to home after login
+        router.push(response.data.redirect); // <-- Redirect based on role
       } else {
         window.location.reload();       
       }
@@ -382,6 +386,23 @@ const handleSubmit = async () => {
           </span>
         </div>
       </div>
+      {isLoading && (
+  <Box
+    sx={{
+      position: "fixed",
+      inset: 0,
+      backgroundColor: "rgba(255,255,255,0.7)",
+      zIndex: 9999,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    {<LoadingPage />}
+    <Box className="spinner" />
+  </Box>
+)}
     </div>
   );
 }
