@@ -52,7 +52,7 @@ export default function AdminOrders() {
           ).toFixed(2)
         : 0,
     todayOrders: orders.filter((order) => {
-      const orderDate = new Date(order.createdAt);
+      const orderDate = new Date(order.orderDate);
       const today = new Date();
       return orderDate.toDateString() === today.toDateString();
     }).length,

@@ -23,6 +23,7 @@ export default function ProduitCard({product}) {
       // Increase quantity if exists
       cart[index].quantity += product.quantity;
     } else {
+      product.quantity = quantity;
       cart.push(product);
     }
 

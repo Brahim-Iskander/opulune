@@ -143,7 +143,7 @@ const handleSubmit = async (e) => {
         name: p.name || "",
         price: p.price || 0,
         quantity: p.quantity || 1,
-        url: p.url || "",
+        url: p.imageUrl || "",
       })),
       subtotal: subtotal,
       tax: tax,
@@ -518,7 +518,7 @@ const handleSubmit = async (e) => {
                       }}
                     >
                       <Avatar
-                        src={item.url}
+                        src={item.imageUrl}
                         alt={item.name}
                         variant="rounded"
                         sx={{ width: 64, height: 64 }}

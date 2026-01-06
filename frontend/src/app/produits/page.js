@@ -33,7 +33,7 @@ export default function BasicGrid() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:8081/api/products/getallproducts");
+        const res = await fetch("https://opulune-4.onrender.com/api/products/getallproducts");
         const data = await res.json();
         setProducts(data);
       }

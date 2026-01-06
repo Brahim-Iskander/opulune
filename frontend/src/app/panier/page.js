@@ -88,7 +88,7 @@ const handleCheckout = () => {
               <TableRow key={row.name + index} sx={{ flexDirection: isMobile ? "column" : "row" }}>
                 <TableCell component="th" scope="row">
                   <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "center" }}>
-                    <img src={row.url} alt={row.name} style={{
+                    <img src={row.imageUrl} alt={row.name} style={{
                       width: isMobile ? "80px" : "100px",
                       height: isMobile ? "80px" : "100px",
                       marginRight: isMobile ? "0" : "20px",

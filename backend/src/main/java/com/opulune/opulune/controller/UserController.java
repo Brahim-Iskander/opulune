@@ -5,6 +5,7 @@ import com.opulune.opulune.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Register endpoint
     @PostMapping("/register")
@@ -50,8 +54,12 @@ public class UserController {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
             
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
             // Save user to database
             User savedUser = userRepository.save(user);
+
+
             
             response.put("success", true);
             response.put("message", "User registered successfully");
@@ -71,7 +79,7 @@ public ResponseEntity<Map<String, Object>> login(@RequestBody User loginRequest)
     Map<String, Object> response = new HashMap<>();
 
     Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
-    if (userOptional.isEmpty() || !userOptional.get().getPassword().equals(loginRequest.getPassword())) {
+    if (userOptional.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOptional.get().getPassword())) {
         response.put("success", false);
         response.put("message", "Invalid email or password");
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
