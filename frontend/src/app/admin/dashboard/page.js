@@ -2,20 +2,32 @@
 import { useState, useEffect } from 'react';
 import styles from './AdminDashboard.module.css';
 import axios from 'axios';
+import { useRouter } from "next/navigation";
+
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const router = useRouter();
+
+
+const [user, setUser] = useState(null);
+useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  setUser(storedUser);
+
+  if (!storedUser || storedUser.role !== "admin") {
+    window.location.href = "/auth/users";
+  }
+}, []);
+
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      window.location.href = '/auth/users';
-    }
-  }, []);
-  useEffect(() => {
+  if (!user || user.role !== 'admin') return;
+
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://opulune-4.onrender.com/api/products/getallproducts");
-      console.log(res.data);
+      const res = await axios.get(
+        "https://opulune-4.onrender.com/api/products/getallproducts"
+      );
       setProducts(res.data);
     } catch (err) {
       console.error(err);
@@ -23,7 +35,7 @@ export default function AdminDashboard() {
   };
 
   fetchProducts();
-}, []);
+}, [user]);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -44,10 +56,6 @@ export default function AdminDashboard() {
     categories: 0
   });
 
-  useEffect(() => {
-    calculateStats();
-  }, [products]);
-
   const calculateStats = () => {
   const totalProducts = products.length;
   const totalValue = products.reduce(
@@ -59,6 +67,11 @@ export default function AdminDashboard() {
 
   setStats({ totalProducts, totalValue, lowStock, categories });
 };
+
+useEffect(() => {
+  calculateStats();
+}, [products]);
+
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -91,7 +104,7 @@ export default function AdminDashboard() {
     if (editingProduct) {
       // 🔁 UPDATE product in MongoDB
       const res = await axios.put(
-        `http://localhost:8081/api/products/updateproduct/${editingProduct.id}`,
+        `https://opulune-4.onrender.com/api/products/updateproduct/${editingProduct.id}`,
         {
           ...formData,
           price: Number(formData.price),
@@ -107,7 +120,7 @@ export default function AdminDashboard() {
     } else {
       // ➕ ADD product to MongoDB
       const res = await axios.post(
-        "http://localhost:8081/api/products/addproduct",
+        "https://opulune-4.onrender.com/api/products/addproduct",
         {
           ...formData,
           price: Number(formData.price),
@@ -131,7 +144,7 @@ export default function AdminDashboard() {
       setProducts(products.filter(p => p.id !== id));
       const deleteProduct = async () => {
         try {
-          await axios.delete(`http://localhost:8081/api/products/deleteproduct/${id}`, { headers: { "user-role": user.role } });
+          await axios.delete(`https://opulune-4.onrender.com/api/products/deleteproduct/${id}`, { headers: { "user-role": user.role } });
         } catch (err) {
           console.error(err);
         }
@@ -139,6 +152,8 @@ export default function AdminDashboard() {
       deleteProduct();
     }
   };
+  if (!user) return null;
+
 
   return (
     <>
@@ -159,10 +174,23 @@ export default function AdminDashboard() {
               <p className={styles.adminLabel}>Dashboard Admin</p>
             </div>
           </div>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            <span className={styles.logoutIcon}>↗</span>
-            Déconnexion
-          </button>
+          <div style={{ display: "flex", gap: "10px" }}>
+  <button
+      onClick={() => router.push("/admin/dashboard/orders")}
+
+    className={styles.logoutButton}
+  >
+    📦 Commandes
+  </button>
+
+  <button
+    onClick={handleLogout}
+    className={styles.logoutButton}
+  >
+    ↗ Déconnexion
+  </button>
+</div>
+
         </div>
       </header>
 
@@ -213,7 +241,7 @@ export default function AdminDashboard() {
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
 <img src={product.imageUrl} />
-                {product.stock < 15 && (
+                {product.quantity < 15 && (
                   <div className={styles.lowStockBadge}>Stock Faible</div>
                 )}
               </div>
@@ -353,6 +381,7 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+      
     </div>
     </>
   );

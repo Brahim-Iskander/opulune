@@ -2,6 +2,9 @@ package com.opulune.opulune.controller;
 
 import com.opulune.opulune.model.OrderConfirmation;
 import com.opulune.opulune.repository.OrderConfirmationRepository;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,5 +27,10 @@ public class OrderConfirmationController {
         OrderConfirmation saved = repository.save(confirmation);
         return ResponseEntity.ok(saved);
     }
+    @GetMapping("/confirmations")
+public ResponseEntity<List<OrderConfirmation>> getAllConfirmations() {
+    return ResponseEntity.ok(repository.findAll());
+}
+
 
 }
