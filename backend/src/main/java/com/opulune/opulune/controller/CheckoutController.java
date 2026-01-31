@@ -11,7 +11,9 @@ import com.opulune.opulune.DTO.ContactRequest;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"https://opulune.netlify.app", "http://localhost:3000"})  // <-- allow your React app
+//@CrossOrigin(origins = {"https://opulune.netlify.app", "http://localhost:3000"})  // <-- allow your React app
+@CrossOrigin(origins = "*") // DEV ONLY
+
 public class CheckoutController {
 
     @Autowired
