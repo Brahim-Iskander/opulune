@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from 'react';
-import styles from './OpuluneHomepage.module.css';
+import { useState, useEffect } from "react";
+import styles from "./OpuluneHomepage.module.css";
 
 export default function OpuluneHomepage() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,59 +10,57 @@ export default function OpuluneHomepage() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const products = [
     {
       name: "Oud de Minuit",
       description: "Ambre sombre & bois exotiques",
-      price: "78€",
-      image: "🌙"
+      price: "78 TND",
+      image: "🌙",
     },
     {
       name: "Rose Dorée",
       description: "Rose bulgare & champagne",
-      price: "82€",
-      image: "🌹"
+      price: "82 TND",
+      image: "🌹",
     },
     {
       name: "Velours Noir",
       description: "Figue noire & musc cachemire",
-      price: "75€",
-      image: "🖤"
+      price: "75 TND",
+      image: "🖤",
     },
     {
       name: "Luna Blanc",
       description: "Thé blanc & fleur de lune",
-      price: "72€",
-      image: "✨"
-    }
+      price: "72 TND",
+      image: "✨",
+    },
   ];
 
   const collections = [
     {
       title: "CÉLESTE",
       subtitle: "Luminescence inspirée de la lune",
-      count: "8 parfums"
+      count: "8 parfums",
     },
     {
       title: "OPULENT",
       subtitle: "Luxe infusé d'or",
-      count: "6 parfums"
+      count: "6 parfums",
     },
     {
       title: "NOIR",
       subtitle: "Sombre & mystérieux",
-      count: "5 parfums"
-    }
+      count: "5 parfums",
+    },
   ];
 
   return (
     <div className={styles.container}>
-     
-
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroBg}></div>
@@ -70,9 +68,13 @@ export default function OpuluneHomepage() {
           <div className={styles.heroSubtitle}>Bougies Artisanales de Luxe</div>
           <h1 className={styles.heroTitle}>Illuminez Votre Sanctuaire</h1>
           <p className={styles.heroDescription}>
-            La perfection coulée à la main rencontre l'élégance intemporelle. Chaque bougie Opulune est un chef-d'œuvre de senteur et de design, conçu pour transformer votre espace en un havre de luxe.
+            La perfection coulée à la main rencontre l'élégance intemporelle.
+            Chaque bougie Opulune est un chef-d'œuvre de senteur et de design,
+            conçu pour transformer votre espace en un havre de luxe.
           </p>
-          <a href="/produits" className={styles.ctaButton}>Découvrir la Collection</a>
+          <a href="/produits" className={styles.ctaButton}>
+            Découvrir la Collection
+          </a>
         </div>
       </section>
 
@@ -84,8 +86,8 @@ export default function OpuluneHomepage() {
         </div>
         <div className={styles.productsGrid}>
           {products.map((product, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={styles.productCard}
               onMouseEnter={() => setActiveProduct(index)}
             >
@@ -120,30 +122,39 @@ export default function OpuluneHomepage() {
         <div className={styles.experienceContent}>
           <h2 className={styles.experienceTitle}>L'Expérience Opulune</h2>
           <p className={styles.experienceDescription}>
-            Chaque bougie est un voyage. De la première flamme jusqu'à la dernière heure, nous créons des moments de pure indulgence en utilisant uniquement les cires naturelles les plus fines, des huiles parfumées premium et des mèches en coton sans plomb.
+            Chaque bougie est un voyage. De la première flamme jusqu'à la
+            dernière heure, nous créons des moments de pure indulgence en
+            utilisant uniquement les cires naturelles les plus fines, des huiles
+            parfumées premium et des mèches en coton sans plomb.
           </p>
           <div className={styles.featuresList}>
             <div className={styles.featureItem}>
               <div className={styles.featureTitle}>Coulée à la Main</div>
-              <div className={styles.featureDescription}>Artisanat en petits lots</div>
+              <div className={styles.featureDescription}>
+                Artisanat en petits lots
+              </div>
             </div>
             <div className={styles.featureItem}>
               <div className={styles.featureTitle}>Cire Premium</div>
-              <div className={styles.featureDescription}>100% mélange naturel soja & coco</div>
+              <div className={styles.featureDescription}>
+                100% mélange naturel soja & coco
+              </div>
             </div>
             <div className={styles.featureItem}>
               <div className={styles.featureTitle}>Parfum de Luxe</div>
-              <div className={styles.featureDescription}>Profils olfactifs complexes</div>
+              <div className={styles.featureDescription}>
+                Profils olfactifs complexes
+              </div>
             </div>
             <div className={styles.featureItem}>
-              <div className={styles.featureTitle}>65+ Heures de Combustion</div>
+              <div className={styles.featureTitle}>
+                65+ Heures de Combustion
+              </div>
               <div className={styles.featureDescription}>Luxe longue durée</div>
             </div>
           </div>
         </div>
       </section>
-
-      
     </div>
   );
 }

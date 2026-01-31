@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/order")
-@CrossOrigin(origins = {"https://opulune.netlify.app", "http://localhost:3000"})  // <-- allow your React app
+//@CrossOrigin(origins = {"https://opulune.netlify.app", "http://localhost:3000"})  // <-- allow your React app
+@CrossOrigin(origins = "*") // DEV ONLY
+
 public class OrderConfirmationController {
 
     private final OrderConfirmationRepository repository;
@@ -31,6 +33,8 @@ public class OrderConfirmationController {
 public ResponseEntity<List<OrderConfirmation>> getAllConfirmations() {
     return ResponseEntity.ok(repository.findAll());
 }
-
-
+@GetMapping("/confirmations/{email}")
+public ResponseEntity<List<OrderConfirmation>> getConfirmationsByEmail(@PathVariable String email) {
+    return ResponseEntity.ok(repository.findByEmail(email));
+}
 }

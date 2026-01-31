@@ -61,7 +61,7 @@ export default function ProduitCard({product}) {
           <Typography
             variant="body2"
             color="text.primary"
-            sx={{ fontFamily: 'var(--font-montserrat)', fontSize: '16px', textAlign: 'center' }}
+            sx={{ fontFamily: 'var(--font-montserrat)', fontSize: '20px', textAlign: 'center',fontWeight:'bold' }}
           >
             {product.name}
           </Typography>
@@ -69,7 +69,7 @@ export default function ProduitCard({product}) {
           <Typography
             variant="body2"
             color="text.primary"
-            sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '18px', textAlign: 'center' }}
+            sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '16px', textAlign: 'center' }}
           >
             Prix: {product.price} TND
           </Typography>

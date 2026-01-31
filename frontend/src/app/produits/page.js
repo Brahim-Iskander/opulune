@@ -44,6 +44,7 @@ export default function BasicGrid() {
     fetchProducts();
   }, []);
   
+  
   return (
     <Box
       sx={{
@@ -53,7 +54,7 @@ export default function BasicGrid() {
         width: "100%",
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{display:"flex", flexDirection:"column"}} >
         <Grid item xs={12} sx={{ marginBottom: "50px" }}>
           <Slider products={Products.slice(0, 3)} />
 

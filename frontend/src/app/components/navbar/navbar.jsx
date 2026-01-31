@@ -215,8 +215,10 @@ export default function ButtonAppBar() {
                 },
               }}
             >
-              <MenuItem value="French">French</MenuItem>
-              <MenuItem value="English">English</MenuItem>
+              <MenuItem value="French">Francais 🇫🇷</MenuItem>
+              <MenuItem value="English">English 🇬🇧</MenuItem>
+              <MenuItem value="arabic"> العربية 🇹🇳</MenuItem>
+
             </Select>
           </Box>
         </Toolbar>
@@ -225,7 +227,7 @@ export default function ButtonAppBar() {
         <Toolbar
           sx={{
             display: "flex",
-            justifyContent: { xs: "space-between", md: "space-around" },
+            justifyContent: "space-arround",
             alignItems: "center",
             backgroundColor: "#fdf6ee",
             width: "100%",
@@ -295,6 +297,7 @@ export default function ButtonAppBar() {
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
+
                 inputProps={{ "aria-label": "search" }}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
