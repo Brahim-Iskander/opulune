@@ -76,7 +76,7 @@ export default function AdminOrders() {
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h1 className={styles.title}>📦 Commandes Confirmées</h1>
+          <h1 className={styles.title}>Commandes Confirmées</h1>
           <button
             onClick={() => router.push("/admin/dashboard")}
             className={styles.backButton}
@@ -113,12 +113,12 @@ export default function AdminOrders() {
       {/* Orders Grid */}
       {loading ? (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>⏳</div>
+          <div className={styles.emptyIcon}></div>
           <h2 className={styles.emptyTitle}>Chargement...</h2>
         </div>
       ) : orders.length === 0 ? (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>📦</div>
+          <div className={styles.emptyIcon}></div>
           <h2 className={styles.emptyTitle}>Aucune commande</h2>
           <p className={styles.emptyText}>
             Les commandes confirmées apparaîtront ici

@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 import styles from "./AdminDashboard.module.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import CategoryIcon from '@mui/icons-material/Category';
+import StoreIcon from '@mui/icons-material/Store';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import InventoryIcon from '@mui/icons-material/Inventory';
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const router = useRouter();
@@ -183,7 +186,7 @@ export default function AdminDashboard() {
                 onClick={() => router.push("/admin/dashboard/orders")}
                 className={styles.logoutButton}
               >
-                📦 Commandes
+                Commandes
               </button>
 
               <button onClick={handleLogout} className={styles.logoutButton}>
@@ -196,14 +199,14 @@ export default function AdminDashboard() {
         {/* Stats Section */}
         <section className={styles.statsSection}>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>📦</div>
+            <InventoryIcon className={styles.statIcon} />
             <div className={styles.statContent}>
               <div className={styles.statValue}>{stats.totalProducts}</div>
               <div className={styles.statLabel}>Total Produits</div>
             </div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>💰</div>
+            <AttachMoneyIcon className={styles.statIcon} />
             <div className={styles.statContent}>
               <div className={styles.statValue}>
                 {stats.totalValue.toLocaleString()} TND
@@ -212,14 +215,14 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>⚠️</div>
+            <StoreIcon className={styles.statIcon} />
             <div className={styles.statContent}>
               <div className={styles.statValue}>{stats.lowStock}</div>
               <div className={styles.statLabel}>Stock Faible</div>
             </div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>🏷️</div>
+            <CategoryIcon className={styles.statIcon} />
             <div className={styles.statContent}>
               <div className={styles.statValue}>{stats.categories}</div>
               <div className={styles.statLabel}>Catégories</div>
@@ -267,13 +270,13 @@ export default function AdminDashboard() {
                       onClick={() => openEditModal(product)}
                       className={styles.editButton}
                     >
-                      ✏️ Modifier
+                       Modifier
                     </button>
                     <button
                       onClick={() => handleDelete(product.id)}
                       className={styles.deleteButton}
                     >
-                      🗑️ Supprimer
+                      Supprimer
                     </button>
                   </div>
                 </div>
