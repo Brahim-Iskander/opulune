@@ -195,7 +195,7 @@ export default function AuthPages() {
       const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
 
       const response = await axios.post(
-        `http://localhost:8082${endpoint}`,
+        `https://opulune-4.onrender.com${endpoint}`,
         formData,
       );
 

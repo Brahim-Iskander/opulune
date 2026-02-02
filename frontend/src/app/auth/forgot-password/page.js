@@ -37,7 +37,7 @@ export default function ForgotPassword() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8082/api/auth/forgot-password-web", // use localhost for dev
+        "https://opulune-4.onrender.com/api/auth/forgot-password-web", // use localhost for dev
         { email }
       );
       setMessage(response.data.message);
