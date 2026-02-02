@@ -9,6 +9,7 @@ public class CheckoutDTO {
     private String lastName;
     private String email;
     private String phone;
+    private String orderNumber;
 
     // Shipping info
     private String address;
@@ -47,6 +48,9 @@ public class CheckoutDTO {
 
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
+
+    public String getOrderNumber() { return orderNumber; }
+    public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
 
     public List<ProductItem> getProducts() { return products; }
     public void setProducts(List<ProductItem> products) { this.products = products; }

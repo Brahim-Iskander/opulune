@@ -45,6 +45,7 @@ private void sendEmail(CheckoutDTO request) {
     });
 
     buyerText.append("\nTotal: ").append(request.getTotal());
+    buyerText.append("\nOrder Number: ").append(request.getOrderNumber());
     buyerText.append("\n\nThank you for shopping with us!");
     buyerMessage.setText(buyerText.toString());
     mailSender.send(buyerMessage);
@@ -71,6 +72,7 @@ private void sendEmail(CheckoutDTO request) {
     });
 
     sellerText.append("\nTotal: ").append(request.getTotal());
+    sellerText.append("\nOrder Number: ").append(request.getOrderNumber());
     sellerMessage.setText(sellerText.toString());
     mailSender.send(sellerMessage);
 }
